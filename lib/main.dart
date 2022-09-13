@@ -5,7 +5,6 @@ import 'package:birdeyes/pages/all_customers_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import 'dependency_injection.dart';
 
 void main() {
@@ -28,14 +27,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(392.72727272727275, 737.4545454545455),
+      designSize: const Size(1920, 1200),
       builder: (context, child) => GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Bird Eye',
         theme: AppTheme.appThemeData,
         navigatorKey: Constants.navigatorKey,
         initialBinding: CustomerBinding(),
-        home: const ALlCustomersScreen(),
+        home: const SafeArea(child: ALlCustomersScreen()),
       ),
     );
   }

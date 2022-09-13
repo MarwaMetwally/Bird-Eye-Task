@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'package:birdeyes/core/helper_functions.dart';
+import 'package:birdeyes/core/style/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -35,81 +36,107 @@ class _ALlCustomersScreenState extends State<ALlCustomersScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          body: Column(
+          body: Stack(
         children: [
+          Container(
+            height: MediaQuery.of(context).size.height,
+          ),
           CustomAppBar(onSelect: (imagesrc) {
             HelperFunctions.onImageButtonPressed(imagesrc, _picker);
           }),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text("Customer"),
-                Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 16,
-                      backgroundColor: AppColors.mainColor,
-                      child: SvgPicture.asset(
-                        Paths.search,
-                        width: 16,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10.w,
-                    ),
-                    CircleAvatar(
-                      radius: 16,
-                      backgroundColor: AppColors.mainColor,
-                      child: InkWell(
-                        onTap: addButtonOnTap,
-                        child: SvgPicture.asset(
-                          Paths.add,
-                          width: 16,
+          Positioned(
+            left: 0,
+            right: 0,
+            top: 60,
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height - 100,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Row(
+                          children: [
+                            CircleAvatar(
+                              radius: 16,
+                              backgroundColor: AppColors.mainColor,
+                              child: SvgPicture.asset(
+                                Paths.search,
+                                width: 16,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            CircleAvatar(
+                              radius: 16,
+                              backgroundColor: AppColors.mainColor,
+                              child: InkWell(
+                                onTap: addButtonOnTap,
+                                child: SvgPicture.asset(
+                                  Paths.add,
+                                  width: 16,
+                                ),
+                              ),
+                            )
+                          ],
                         ),
-                      ),
-                    )
-                  ],
-                ),
-              ],
+                        Text(
+                          "العملاء",
+                          style: AppTextStyle.displaySemiBold,
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  Expanded(
+                      child: Container(
+                          margin: const EdgeInsets.only(
+                              bottom: 16, right: 16, left: 16, top: 8),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(color: AppColors.mainColor)),
+                          child: Obx(
+                            () => customerController.isDataLoading.value
+                                ? const Center(
+                                    child: CircularProgressIndicator())
+                                : Directionality(
+                                    textDirection: TextDirection.rtl,
+                                    child: ListView.separated(
+                                        shrinkWrap: true,
+                                        itemBuilder: (context, index) =>
+                                            TableRowWidget(
+                                              customer: customerController
+                                                  .allCustomersList[index],
+                                              index: index,
+                                              onDismissed: (direction) {
+                                                customerController
+                                                    .allCustomersList
+                                                    .removeAt(index);
+                                                setState(() {});
+                                                Constants.snackBar(
+                                                    "Item Deleted Succeccfully");
+                                              },
+                                            ),
+                                        separatorBuilder: (context, index) =>
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                        itemCount: customerController
+                                            .allCustomersList.length),
+                                  ),
+                          ))),
+                ],
+              ),
             ),
           ),
-          SizedBox(
-            height: 20.h,
-          ),
-          Expanded(
-              child: Container(
-                  margin:
-                      EdgeInsets.only(bottom: 24.h, right: 16.w, left: 16.w),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8.r),
-                      border: Border.all(color: AppColors.mainColor)),
-                  child: Obx(
-                    () => customerController.isDataLoading.value
-                        ? const Center(child: CircularProgressIndicator())
-                        : ListView.separated(
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) => TableRowWidget(
-                                  customer: customerController
-                                      .allCustomersList[index],
-                                  index: index,
-                                  onDismissed: (direction) {
-                                    customerController.allCustomersList
-                                        .removeAt(index);
-                                    setState(() {});
-                                    Constants.snackBar(
-                                        "Item Deleted Succeccfully");
-                                  },
-                                ),
-                            separatorBuilder: (context, index) => SizedBox(
-                                  height: 10.h,
-                                ),
-                            itemCount:
-                                customerController.allCustomersList.length),
-                  ))),
         ],
       )),
     );
@@ -118,16 +145,16 @@ class _ALlCustomersScreenState extends State<ALlCustomersScreen> {
   void addButtonOnTap() {
     Constants.showCustomDialog(
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 15.w, vertical: 20.h),
+          margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: const [
-              AddTextField(icon: Icons.person, title: "Name : "),
-              AddTextField(icon: Icons.email, title: "Email : "),
-              AddTextField(icon: Icons.phone, title: "Phone : "),
+              AddTextField(icon: Icons.person, title: "اسم العميل"),
+              AddTextField(icon: Icons.email, title: "البريد الالكتروني"),
+              AddTextField(icon: Icons.phone, title: "رقم الجوال"),
             ],
           ),
         ),
-        "Add Customer");
+        "اضافة عميل");
   }
 }

@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.birdeyes">
+   <uses-permission android:name="android.permission.INTERNET" /> 
    <application
         android:label="birdeyes"
         android:name="${applicationName}"

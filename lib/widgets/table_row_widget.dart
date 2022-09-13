@@ -1,13 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:birdeyes/core/style/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-
 import 'package:birdeyes/models/customer.dart';
-
 import '../controllers/customer_controller.dart';
 import '../core/paths.dart';
 import '../core/style/colors.dart';
@@ -31,42 +30,38 @@ class TableRowWidget extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 25.w),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
+                children: [
                   Expanded(
                     child: AutoSizeText(
-                      "Name",
+                      "اسم العميل",
                       textAlign: TextAlign.center,
-                      maxFontSize: 21,
-                      minFontSize: 18,
-                      style: TextStyle(
-                          color: AppColors.mainColor,
-                          fontWeight: FontWeight.bold),
+                      maxFontSize: 14,
+                      minFontSize: 14,
+                      style: AppTextStyle.displaySemiBold,
                     ),
                   ),
                   Expanded(
-                    child: AutoSizeText("Email",
-                        maxFontSize: 21,
-                        minFontSize: 18,
+                    child: AutoSizeText("البريد الالكتروني",
+                        maxFontSize: 14,
+                        minFontSize: 14,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: AppColors.mainColor,
-                            fontWeight: FontWeight.bold)),
+                        style: AppTextStyle.displaySemiBold),
                   ),
                   Expanded(
-                    child: AutoSizeText("Phone",
-                        maxFontSize: 21,
-                        minFontSize: 18,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: AppColors.mainColor,
-                            fontWeight: FontWeight.bold)),
+                    child: AutoSizeText(
+                      "الجوال",
+                      maxFontSize: 14,
+                      minFontSize: 14,
+                      textAlign: TextAlign.center,
+                      style: AppTextStyle.displaySemiBold,
+                    ),
                   ),
                 ]),
           )
         : Dismissible(
-            direction: DismissDirection.endToStart,
+            direction: DismissDirection.startToEnd,
             background: Container(
-              alignment: AlignmentDirectional.centerEnd,
+              alignment: AlignmentDirectional.centerStart,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8.r),
                 color: AppColors.white,
@@ -82,9 +77,9 @@ class TableRowWidget extends StatelessWidget {
                   SizedBox(
                     height: 2.h,
                   ),
-                  const Text(
-                    "delete",
-                    style: TextStyle(color: AppColors.mainColor),
+                  Text(
+                    "حذف",
+                    style: AppTextStyle.displayMedium.copyWith(fontSize: 10),
                   )
                 ],
               ),
@@ -93,10 +88,10 @@ class TableRowWidget extends StatelessWidget {
             onDismissed: onDismissed,
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8.r),
+                borderRadius: BorderRadius.circular(8),
                 color: index.isEven ? AppColors.mainColor : AppColors.greyLight,
               ),
-              padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 25.w),
+              padding: EdgeInsets.symmetric(vertical: 15, horizontal: 25.w),
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -137,6 +132,7 @@ class TableRowWidget extends StatelessWidget {
                                   .toString(),
                           minFontSize: 15,
                           maxLines: 1,
+                          textDirection: TextDirection.ltr,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: index.isEven

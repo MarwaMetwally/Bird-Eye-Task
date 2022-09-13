@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import '../core/constants.dart';
 import '../core/paths.dart';
 import '../core/style/colors.dart';
+import '../core/style/text_style.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({
@@ -26,85 +27,87 @@ class CustomAppBar extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          height: 70,
-          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 70.h),
+          height: 90,
         ),
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-          color: AppColors.mainColor,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  SvgPicture.asset(
-                    Paths.menu,
-                    width: 28,
-                    height: 16,
-                  ),
-                  SizedBox(
-                    width: 8.w,
-                  ),
-                  SvgPicture.asset(
-                    Paths.birdEye,
-                    width: 27,
-                    height: 27,
-                  ),
-                  SizedBox(
-                    width: 8.w,
-                  ),
-                  const Text(
-                    "Bird Eye",
-                    style: TextStyle(color: AppColors.white),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  const Text(
-                    "Mustafa",
-                    style: TextStyle(color: AppColors.white),
-                  ),
-                  SizedBox(
-                    width: 10.w,
-                  ),
-                  Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 4),
-                      decoration: BoxDecoration(
-                          color: AppColors.red,
-                          borderRadius: BorderRadius.circular(8)),
-                      child: SvgPicture.asset(
-                        Paths.logout,
-                        width: 20,
-                        height: 15,
-                      )),
-                ],
-              ),
-            ],
+        SizedBox(
+          height: 50,
+          width: MediaQuery.of(context).size.width,
+          child: Material(
+            shape: CustomShapeBorder(),
+            color: AppColors.mainColor,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+          child: SizedBox(
+            height: 50,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 4),
+                        decoration: BoxDecoration(
+                            color: AppColors.red,
+                            borderRadius: BorderRadius.circular(8)),
+                        child: SvgPicture.asset(
+                          Paths.logout,
+                          width: 20,
+                          height: 15,
+                        )),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      "Mustafa",
+                      style: AppTextStyle.displayMedium
+                          .copyWith(color: AppColors.white),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text(
+                      "بيرد اي",
+                      style: AppTextStyle.displayMedium
+                          .copyWith(color: AppColors.white),
+                    ),
+                    const SizedBox(width: 8),
+                    SvgPicture.asset(
+                      Paths.birdEye,
+                      width: 27,
+                      height: 27,
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    SvgPicture.asset(
+                      Paths.menu,
+                      width: 28,
+                      height: 16,
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
         Positioned(
-          bottom: 0,
-          left: orientation == Orientation.portrait
-              ? deviceWidth * 0.41
-              : deviceWidth * 0.45,
-          child: Container(
-            padding: const EdgeInsets.all(12),
-            height: 60,
-            width: 60,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: AppColors.mainColor),
-            child: InkWell(
-              onTap: () {
-                Constants.showCustomDialog(
-                    Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: AppColors.mainColor)),
-                      margin: EdgeInsets.symmetric(
-                          horizontal: 15.w, vertical: 20.h),
+          bottom: 10,
+          left: deviceWidth * 0.5 - 30,
+          child: InkWell(
+            onTap: () {
+              Constants.showCustomDialog(
+                  Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: AppColors.mainColor)),
+                    margin:
+                        EdgeInsets.symmetric(horizontal: 16, vertical: 16.h),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
@@ -117,10 +120,10 @@ class CustomAppBar extends StatelessWidget {
                               children: [
                                 SvgPicture.asset(
                                   Paths.camera,
-                                  width: 70.w,
+                                  width: 60,
                                 ),
-                                SizedBox(
-                                  height: 10.h,
+                                const SizedBox(
+                                  height: 10,
                                 ),
                                 const Text("Camera")
                               ],
@@ -135,10 +138,10 @@ class CustomAppBar extends StatelessWidget {
                               children: [
                                 SvgPicture.asset(
                                   Paths.gallery,
-                                  width: 70.w,
+                                  width: 60,
                                 ),
-                                SizedBox(
-                                  height: 10.h,
+                                const SizedBox(
+                                  height: 10,
                                 ),
                                 const Text("Gallery")
                               ],
@@ -147,20 +150,41 @@ class CustomAppBar extends StatelessWidget {
                         ],
                       ),
                     ),
-                    "Upload Image");
-              },
-              child: CircleAvatar(
-                  backgroundColor: AppColors.white,
-                  radius: 17,
-                  child: SvgPicture.asset(
-                    Paths.notification,
-                    width: 20,
-                    height: 25,
-                  )),
-            ),
+                  ),
+                  "اضافة صوره");
+            },
+            child: CircleAvatar(
+                backgroundColor: AppColors.white,
+                child: SvgPicture.asset(
+                  Paths.notification,
+                  width: 20,
+                  height: 25,
+                )),
           ),
         ),
       ],
     );
+  }
+}
+
+class CustomShapeBorder extends ContinuousRectangleBorder {
+  @override
+  Path getOuterPath(Rect rect, {TextDirection? textDirection}) {
+    print("ttt");
+    print(rect.center.dx);
+
+    double x = 150, y = 40, r = 0.5;
+    Path path = Path()
+      ..addRRect(RRect.fromRectAndCorners(rect))
+      ..moveTo(rect.center.dx + 65, rect.bottomCenter.dy)
+      ..relativeQuadraticBezierTo(
+          ((-x / 2) + (x / 6)) * (1 - r), 0, -x / 2 * r, y * r)
+      ..relativeQuadraticBezierTo(
+          -x / 6 * r, y * (1 - r), -x / 2 * (1 - r), y * (1 - r))
+      ..relativeQuadraticBezierTo(
+          ((-x / 2) + (x / 6)) * (1 - r), 0, -x / 2 * (1 - r), -y * (1 - r))
+      ..relativeQuadraticBezierTo(-x / 6 * r, -y * r, -x / 2 * r, -y * r);
+    path.close();
+    return path;
   }
 }

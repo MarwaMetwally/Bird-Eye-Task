@@ -19,7 +19,10 @@ class Constants {
     return showDialog(
         context: navigatorKey.currentState!.context,
         builder: (ctx) {
-          return CustomDialog(child: child, title: title);
+          return CustomDialog(
+            child: child,
+            title: title,
+          );
         });
   }
 }

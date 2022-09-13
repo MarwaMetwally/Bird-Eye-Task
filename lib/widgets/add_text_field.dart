@@ -1,3 +1,4 @@
+import 'package:birdeyes/core/style/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -13,38 +14,48 @@ class AddTextField extends StatelessWidget {
   final IconData icon;
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        CircleAvatar(
-            backgroundColor: AppColors.mainColor,
-            radius: 16,
-            child: Icon(
-              icon,
-              color: AppColors.white,
-            )),
-        Container(
-            padding: EdgeInsets.symmetric(horizontal: 10.w),
-            width: 70.w,
-            child: Text(title)),
-        const Expanded(
-          child: Material(
-              elevation: 10.0,
-              shadowColor: AppColors.greyLight,
-              child: TextField(
-                decoration: InputDecoration(
-                    filled: true,
-                    fillColor: AppColors.white,
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 7, horizontal: 10),
-                    // focusedBorder: OutlineInputBorder(
-                    //     borderSide: BorderSide(color: AppColors.greyLight)),
-                    // enabledBorder: OutlineInputBorder(
-                    //     borderSide: BorderSide(color: AppColors.greyLight)),
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.greyLight))),
+    return SizedBox(
+      height: 58.h,
+      child: Row(
+        children: [
+          const Expanded(
+            child: Material(
+                elevation: 10.0,
+                shadowColor: AppColors.greyLight,
+                child: TextField(
+                  decoration: InputDecoration(
+                      filled: true,
+                      fillColor: AppColors.white,
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(color: AppColors.greyLight))),
+                )),
+          ),
+          Container(
+              padding: EdgeInsets.symmetric(horizontal: 10.w),
+              width: 246.w,
+              child: Text(
+                title,
+                textAlign: TextAlign.right,
+                style: AppTextStyle.bodyTextLight,
               )),
-        ),
-      ],
+          const SizedBox(
+            height: 5,
+          ),
+          CircleAvatar(
+              backgroundColor: AppColors.mainColor,
+              radius: 16,
+              child: Icon(
+                icon,
+                color: AppColors.white,
+                size: 20,
+              )),
+          const SizedBox(
+            height: 5,
+          )
+        ],
+      ),
     );
   }
 }
